@@ -41,7 +41,7 @@ under the License.
 		<script type="text/javascript" src="phonegap.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript">
-		app.initialize();
+			app.initialize();
 		</script>
 		<script type="text/javascript" charset="utf-8" src="SQLitePlugin.js"></script>
 		<script type="text/javascript" charset="utf-8">
@@ -69,6 +69,34 @@ under the License.
 						console.log("ERROR: " + e.message);
 					});
 				});
+				fileSystemTesting();
+			}
+
+			function fileSystemTesting() {
+				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, receiveFS, fail);
+			}
+
+			function receiveFS(fileSystem) {
+				var root = fileSystem.root;
+				var directoryReader = root.createReader();
+				// On successfully reading entries in the file system
+				directoryReader.readEntries(function(entries) {
+					for (var i = 0; i < entries.length; i++) {
+						var entry = entries[i];
+						if (entry.isDirectory) {
+							console.log('Directory: ' + entry.fullPath);
+						} else if (entry.isFile) {
+							console.log('File: ' + entry.fullPath);
+						}
+					}
+				// On an error
+				}, function() {
+				  console.log("error in reading entries");
+				});
+			}
+			
+			function fail() {
+				console.log("error in requesting the file system");
 			}
 		</script>
 	</body>
