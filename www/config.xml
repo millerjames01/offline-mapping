@@ -3,17 +3,17 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.phonegap.helloworld"
+        id        = "com.phonegap.offlinemapping"
         version   = "1.0.0">
 
-    <name>HelloWorld</name>
+    <name>Offline Mapping</name>
 
     <description>
-        Hello World sample application that responds to the deviceready event.
+        Allows map tiles to be accessed from a local SQL database
     </description>
 
-    <author href="http://phonegap.com" email="support@phonegap.com">
-        PhoneGap Team
+    <author email="miller.james01@gmail.com">
+        Jim Miller
     </author>
 
     <!--

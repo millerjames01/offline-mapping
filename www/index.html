@@ -22,82 +22,17 @@ under the License.
 		<meta charset="utf-8" />
 		<meta name="format-detection" content="telephone=no" />
 		<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+		<link rel="stylesheet" type="text/css" href="css/leaflet.css" />
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
-		<title>Hello World</title>
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/leaflet.js"></script>
+		<script type="text/javascript" src="js/TileLayer.MBTiles.js"></script>
+		<title>Offline Mapping</title>
 	</head>
-	<body>
-		<div class="app">
-			<h1>PhoneGap</h1>
-			<div id="deviceready" class="blink">
-				<p class="event listening">
-					Connecting to Device
-				</p>
-				<p class="event received">
-					Device is Ready
-				</p>
-			</div>
-		</div>
-		<script type="text/javascript" src="phonegap.js"></script>
-		<script type="text/javascript" src="js/index.js"></script>
-		<script type="text/javascript">
-			app.initialize();
-		</script>
-		<script type="text/javascript" charset="utf-8" src="SQLitePlugin.js"></script>
-		<script type="text/javascript" charset="utf-8">
-			// Wait for Cordova to load
-			document.addEventListener("deviceready", onDeviceReady, false);
-
-			// Cordova is ready
-			function onDeviceReady() {
-				var db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
-
-				db.transaction(function(tx) {
-					tx.executeSql('DROP TABLE IF EXISTS test_table');
-					tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
-
-					tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function(tx, res) {
-						console.log("insertId: " + res.insertId + " -- probably 1");
-						console.log("rowsAffected: " + res.rowsAffected + " -- should be 1");
-
-						tx.executeSql("select count(id) as cnt from test_table;", [], function(tx, res) {
-							console.log("res.rows.length: " + res.rows.length + " -- should be 1");
-							console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
-						});
-
-					}, function(e) {
-						console.log("ERROR: " + e.message);
-					});
-				});
-				fileSystemTesting();
-			}
-
-			function fileSystemTesting() {
-				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, receiveFS, fail);
-			}
-
-			function receiveFS(fileSystem) {
-				var root = fileSystem.root;
-				var directoryReader = root.createReader();
-				// On successfully reading entries in the file system
-				directoryReader.readEntries(function(entries) {
-					for (var i = 0; i < entries.length; i++) {
-						var entry = entries[i];
-						if (entry.isDirectory) {
-							console.log('Directory: ' + entry.fullPath);
-						} else if (entry.isFile) {
-							console.log('File: ' + entry.fullPath);
-						}
-					}
-				// On an error
-				}, function() {
-				  console.log("error in reading entries");
-				});
-			}
-			
-			function fail() {
-				console.log("error in requesting the file system");
-			}
-		</script>
+	<body onload="onBodyLoad()">
+		<h1>Predownloaded maps being displayed</h1>
+		<div id="map"></div>
+		<script type="text/javascript" charset="utf-8" src="js/main.js"></script>
 	</body>
+	
 </html>
