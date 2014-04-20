@@ -37,9 +37,11 @@ body {
 /* Portrait layout (default) */
 #map {
     position:absolute;             /* position in the center of the screen */
-    left:50%;
-    top:50%;
-    height:200px;                   /* text area width */                              /* offset horizontal: half of text area width */
+    left:5%;
+    top:10%;
+    height:500px;
+    width: 90%;                   /* text area width */                              /* offset horizontal: half of text area width */
+    border: 1px solid black;
 }
 
 /* Landscape layout (with min-width) */
