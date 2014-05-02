@@ -1,7 +1,8 @@
 #!/bin/bash
 
 phonegap install android
+phonegap build android
 phonegap plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-file.git
 phonegap plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-file-transfer.git
 phonegap plugin add https://github.com/brodysoft/Cordova-SQLitePlugin.git
-phonegap build android
+phonegap run android
